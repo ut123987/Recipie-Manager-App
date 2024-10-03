@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Recipie_Manager_App.MVVM.ViewModels"
+             x:Class="Recipie_Manager_App.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:RecipieViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20">
+        <Label Text="Recipie Manager" FontSize="24" HorizontalOptions="Center"/>
+
+        <Entry x:Name="RecipieNameEntry" Placeholder="RecipieName" />
+        <Editor x:Name="IngredeintsEditor" Placeholder="Ingredients" HeightRequest="100"/>
+        <Editor x:Name="InstructionsEditor" Placeholder="Instructions" HeightRequest="100"/>
+
+        <Button Text="Add &#10; Recipie" Clicked="OnAddRecipieClicked"/>
+        
+        <CollectionView ItemsSource="{Binding Recipies}" >
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions="auto,auto,auto" ColumnDefinitions="*,*">
+                        <Label Text="{Binding Name}" />
+                        <Label Text="{Binding Ingredients}" Grid.Row="1"/>
+                        <Label Text="{Binding Instructions}" Grid.Row="2"/>
+                        <Button Text="Delete" Grid.Column="1" Grid.RowSpan="2" Clicked="OnDeleteRecipieClicked" CommandParameter="{Binding .}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
